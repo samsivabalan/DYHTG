@@ -6,7 +6,7 @@ class Game:
 
     def __init__(self):
         self.gameState = "menu"
-        #begin GUI
+        self.keyDown = False
     
     def leftKeyPress(self):
         match self.gameState:
@@ -22,8 +22,8 @@ class Game:
     def rightKeyPress(self):
         match self.gameState:
             case "menu":
-                self.running = false
                 #quit game
+                self.running = False
             case "building":
                 pass
                 #refuse piece, get next
@@ -32,12 +32,22 @@ class Game:
                 #other attack
 
     def startBuilding(self):
+        #update game state
         self.gameState = "building"
-        self.parts = [[]*3]*4
-        for i in range(0,4):
-            for j in range(0,3):
-                self.parts[i][j] = 0 #call create part 
+
         #create lists of random parts
+        self.parts = [[0]*3]*4
+        print(self.parts)
+        for i in range(0,4):
+            remainingTiers = [0, 1, 2, 3, 4, 5]
+            for j in range(0,3):
+                tier = random.choice(remainingTiers)
+                remainingTiers.remove(tier)
+                self.parts[i][j] = 0 #Part(i, tier)
+        
+
+    def startBattling(self):
+        pass
 
     def menuLoop(self):
         pass
@@ -50,7 +60,7 @@ class Game:
 
     def mainLoop(self):
             while self.running:
-                screen.blit(legs_img, (30,30))
+                screen.blit(legs_img, (0,0))
                 #screen.fill("green")
             
             # poll for events
@@ -76,14 +86,13 @@ class Game:
                 case "menu":
                     self.menuLoop()
                 case "building":
-                    pass
-                    #call building function
+                    self.buildLoop()
                 case "battle":
-                    pass
-                    #other attack
+                    self.battleLoop()
 
     def beginGame(self):
         self.running = True
+        self.gameState = "menu"
         self.mainLoop()
 
 
@@ -106,9 +115,10 @@ background_img = pygame.image.load('assets/apple.png').convert() # the apple is 
 
 clock = pygame.time.Clock()
 # fill the screen with a color to wipe away anything from last frame
-screen.fill("purple")
+screen.fill("#404040")
 
 
+playerBot = 0 #Robot(empty)
 theGame = Game()
 theGame.beginGame()
 pygame.quit()
