@@ -1,5 +1,6 @@
 import pygame
 import random
+#import parts
 
 class Game:
     
@@ -11,6 +12,7 @@ class Game:
     def leftKeyPress(self):
         match self.gameState:
             case "menu":
+                #begin building phase
                 self.startBuilding()
             case "building":
                 pass
@@ -31,13 +33,16 @@ class Game:
                 pass
                 #other attack
 
+    def startMenu(self):
+        #menu UI will be drawn here
+        pass
+
     def startBuilding(self):
         #update game state
         self.gameState = "building"
 
         #create lists of random parts
         self.parts = [[0]*3]*4
-        print(self.parts)
         for i in range(0,4):
             remainingTiers = [0, 1, 2, 3, 4, 5]
             for j in range(0,3):
@@ -47,20 +52,19 @@ class Game:
         
 
     def startBattling(self):
-        pass
-
-    def menuLoop(self):
-        pass
+        self.gameState = "battle"
+        #create enemies
 
     def buildLoop(self):
         pass
+        #display current part
+        
 
     def battleLoop(self):
         pass
 
     def mainLoop(self):
             while self.running:
-                screen.blit(legs_img, (0,0))
                 #screen.fill("green")
             
             # poll for events
@@ -83,16 +87,22 @@ class Game:
                 clock.tick(60)  # limits FPS to 60
         
             match self.gameState:
-                case "menu":
-                    self.menuLoop()
                 case "building":
                     self.buildLoop()
                 case "battle":
                     self.battleLoop()
 
     def beginGame(self):
+        #draw background
+        screen.blit(background_img, (0,0))
+
+        #set loop condition
         self.running = True
-        self.gameState = "menu"
+
+        #draw menu
+        self.startMenu()
+
+        #begin the main loop
         self.mainLoop()
 
 
@@ -110,7 +120,7 @@ legs_img = pygame.image.load('assets/appleLegs.png').convert()
 body_img = pygame.image.load('assets/appleBody.png').convert()
 arms_img = pygame.image.load('assets/appleArms.png').convert()
 head_img = pygame.image.load('assets/appleHead.png').convert()
-background_img = pygame.image.load('assets/apple.png').convert() # the apple is 740 x 740  btw
+background_img = pygame.image.load('assets/background_draft.png').convert()
 
 
 clock = pygame.time.Clock()
