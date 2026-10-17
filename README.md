@@ -1,5 +1,5 @@
 # DYHTG
 Code for DYHTG? Hackathon
 
-# Team Members
-# Sam, May, Olivia, Elodie
+## Team Members
+## Sam, May, Olivia, Elodie
