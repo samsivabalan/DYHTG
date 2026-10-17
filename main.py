@@ -32,6 +32,33 @@ class Game:
             case "battle":
                 pass
                 #other attack
+    
+    def acceptPart(self):
+        #add part to robot
+        #playerBot.assemble(self.partType, self.currentPart)
+        #move along to next item
+        if self.partIndex == 2:
+            if self.partType == 3:
+                #end build phase
+                pass
+            else:
+                self.partType += 1
+                self.partIndex = 0
+
+    def rejectPart(self):
+        #burn the part
+
+        #move along to next item
+        if self.partIndex == 2:
+            #add part to robot
+            #playerBot.assemble(self.partType, self.currentPart)
+            if self.partType == 3:
+                #end build phase
+                pass
+            else:
+                self.partType += 1
+                self.partIndex = 0
+        
 
     def startMenu(self):
         #menu UI will be drawn here
@@ -49,6 +76,8 @@ class Game:
                 tier = random.choice(remainingTiers)
                 remainingTiers.remove(tier)
                 self.parts[i][j] = 0 #Part(i, tier)
+        self.partType = 0
+        self.partIndex = 0
         
 
     def startBattling(self):
@@ -56,8 +85,8 @@ class Game:
         #create enemies
 
     def buildLoop(self):
-        pass
-        #display current part
+        self.currentPart = self.parts[self.partType][self.partIndex]
+        screen.blit(self.currentPart.img, (960,80))
         
 
     def battleLoop(self):
