@@ -5,7 +5,7 @@ class Battle:
     def __init__(self, robot):
         self.robot = robot # List of the 4 body parts the player chose
         self.over = False
-        self.message = "Battle starting soon! Press left or right"
+        self.message = "Battle starting soon!"
 
     def leftAction(self):
         self.over = True
