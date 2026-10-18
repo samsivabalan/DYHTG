@@ -18,7 +18,7 @@ class Part:
         self.tier = tier
         self.value = (tier + 1) * 20
         #image will be part + tier key (eg: pile_legs.png)
-        self.image = tier_names[self.tier] + "_" + self.partType + ".png" #get correct image 
+        self.image = tier_names[self.tier] + "_" + str(self.partType) + ".png" #get correct image 
 
     def name(self):
         # e.g. "The toy bot legs"
