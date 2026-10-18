@@ -81,13 +81,7 @@ class Game:
         self.playerBot.assemble(self.offerIndex, self.currentPart)
 
         #move along to next item
-        if self.partIndex == 2:
-            if self.partType == 3:
-                #end build phase
-                pass
-            else:
-                self.partType += 1
-                self.partIndex = 0
+        self.nextPart()
 
     def rejectPart(self):
         #burn the part
@@ -97,16 +91,20 @@ class Game:
             playerBot.assemble(self.offerIndex, self.currentPart)
 
         #move along to next item
-        if self.partIndex == 2:
-            #add part to robot
-            #playerBot.assemble(self.partType, self.currentPart)
-            if self.partType == 3:
-                #end build phase
-                pass
-            else:
-                self.partType += 1
-                self.partIndex = 0
+        self.nextPart()
+
+
+    def nextPart(self):
+        pass
+        #screen.blit(self.light_on_img[i], (960,0))
+        if self.offerIndex == 3:
+            #end build phase
+            pass
+        else:
+            self.offerIndex += 1
+            self.partIndex = 0
         
+
 
     def startMenu(self):
         #menu UI will be drawn here
@@ -122,7 +120,7 @@ class Game:
             self.parts.append(self.createOffers(i))
         self.offerIndex = 0
         self.partIndex = 0
-        screen.blit(self.playerBot.getParts[self.partType,self.partIndex], (960,0))
+        screen.blit(self.playerBot.getParts[self.offerIndex,self.partIndex], (960,0))
         
 
     def startBattling(self):
