@@ -166,10 +166,10 @@ class Game:
         screen.blit(frame_img, (0,0))
         screen.blit(shelf_img,(960,0))
         for i in range(0,3):
-            screen.blit(light_on[i], 980,600)
-            screen.blit(light_off[i], 980,600)
-        screen.blit(button_1_img, 970,620)
-        screen.blit(button_2_img, 990,620)
+            screen.blit(light_on_img[i], 960,0)
+            screen.blit(light_off_img[i], 960,0)
+        screen.blit(button_1_img, 960,0)
+        screen.blit(button_2_img, 960,0)
 
         #set loop condition
         self.running = True
