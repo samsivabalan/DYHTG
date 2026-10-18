@@ -120,6 +120,7 @@ class Game:
             self.parts.append(self.createOffers(i))
         self.partType = 0
         self.partIndex = 0
+        screen.blit(self.playerBot.getParts[self.partType,self.partIndex], (960,0))
         
 
     def startBattling(self):
