@@ -13,12 +13,12 @@ tier_names = {
 }
 
 class Part:
-    def __init__(self, partType, tier):
+    def __init__(self, partType, tier, image):
         self.partType = partType
         self.tier = tier
         self.value = (tier + 1) * 20
         #image will be part + tier key (eg: pile_legs.png)
-        self.image = tier_names[self.tier] + "_" + self.partType + ".png" #get correct image 
+        self.image = image
 
     def name(self):
         # e.g. "The toy bot legs"
@@ -28,6 +28,10 @@ class Part:
         # Art team saves images with these names so the program can find the right picture for any part
         #assets/legs/pile_legs.png
         return "assets/" + self.partType + "/" + self.image
+
+    def getImage(self):
+        return self.image
+
     def getValue(self):
         return self.value
 
@@ -40,14 +44,8 @@ class Robot:
         else:
             self.parts[Part(0,random.randint(0,5)), Part(1,random.randint(0,5)), Part(2,random.randint(0,5)), Part(3,random.randint(0,5))]
 
-    def assemble(partType, part):
+    def assemble(self, partType, part):
         self.parts[partType] = part
 
     def getParts(self, partType):
         return self.parts
-
-    def getPartImage(self, partType):
-        return self.parts[partType].getImage
-
-    def getStat(self, partType):
-        return self.parts[partType].getValue

@@ -9,7 +9,6 @@ import pygame
 import random
 from robot import Robot
 from robot import Part
-from battle import Battle
 
 class Game:
     def __init__(self):
@@ -47,6 +46,16 @@ class Game:
             self.light_on_img.append(pygame.image.load('assets/light' + str(i) + '_on.png').convert_alpha())
             self.light_off_img.append(pygame.image.load('assets/light' + str(i) + '_on.png').convert_alpha())
 
+    def getPartImage(self, partType, tier):
+        match partType:
+            case 0:
+                return self.legs_img[tier]
+            case 1:
+                return self.bodies_img[tier]
+            case 2:
+                return self.arms_img[tier]
+            case 3:
+                return self.heads_img[tier]
 
     def leftKeyPress(self):
         match self.gameState:
@@ -73,7 +82,7 @@ class Game:
         # Turns each tier number into a part e.g. [5, 2, 4] -> Eco bot, Toy bot, Companion bot
         offers = []
         for tier in tiers:
-            offers.append(Part(partType,tier))
+            offers.append(Part(partType,tier,self.getPartImage(partType, tier)))
         return offers
     
     def acceptPart(self):
@@ -95,8 +104,15 @@ class Game:
 
 
     def nextPart(self):
-        pass
-        #screen.blit(self.light_on_img[i], (960,0))
+
+        #update lights
+        screen.blit(self.light_on_img[self.offerIndex], (960,0))
+        if self.offerIndex == 0:
+            screen.blit(self.light_off_img[2], (960,0))
+        else:
+            screen.blit(self.light_off_img[self.offerIndex-1], (960,0))
+
+
         if self.offerIndex == 3:
             #end build phase
             pass
@@ -104,11 +120,12 @@ class Game:
             self.offerIndex += 1
             self.partIndex = 0
         
+        screen.blit(self.parts[self.offerIndex][self.partIndex].getImage(), (960,60))
 
 
-    def startMenu(self):
-        #menu UI will be drawn here
-        pass
+
+
+
 
     def startBuilding(self):
         #update game state
@@ -120,7 +137,8 @@ class Game:
             self.parts.append(self.createOffers(i))
         self.offerIndex = 0
         self.partIndex = 0
-        screen.blit(self.playerBot.getParts[self.offerIndex,self.partIndex], (960,0))
+        self.currentPart = self.parts[self.offerIndex][self.partIndex]
+        screen.blit(self.parts[self.offerIndex][self.partIndex].getImage(), (960,60))
         
 
     def startBattling(self):
@@ -132,11 +150,7 @@ class Game:
         screen.blit(self.currentPart.img, (960,80))
 
 
-        #display lights
-        #screen.blit()
 
-    def battleLoop(self):
-        pass
 
     def mainLoop(self):
             while self.running:
@@ -179,9 +193,6 @@ class Game:
 
         #set loop condition
         self.running = True
-
-        #draw menu
-        self.startMenu()
 
         #begin the main loop
         self.mainLoop()
