@@ -1,7 +1,7 @@
 # What a robot part is and how random parts are made.
 import random
 
-part_types = ["legs", "torso", "arms", "head"] # build order from bottom to top
+part_types = ["legs", "body", "arms", "head"] # build order from bottom to top
 
 tier_names = {
     0: "The Pile",
@@ -17,8 +17,8 @@ class Part:
         self.partType = partType
         self.tier = tier
         self.value = (tier + 1) * 20
-        #image will be part + tier key (eg: legs1)
-        self.image = None #get correct image
+        #image will be part + tier key (eg: legs1.png)
+        self.image = self.partType + str(self.tier) + ".png" #get correct image 
 
     def name(self):
         # e.g. "Toy bot Legs"
@@ -26,9 +26,8 @@ class Part:
 
     def imagePath(self):
         # Art team saves images with these names so the program can find the right picture for any part
-        #assets/legs/tier1.png
-        return "assets/" + self.partType + "/tier" + str(self.tier) + ".png"
-
+        #assets/legs/legs1.png
+        return "assets/" + self.partType + "/" + self.image
     def getValue(self):
         return self.value
 
