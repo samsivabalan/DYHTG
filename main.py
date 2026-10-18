@@ -21,6 +21,27 @@ class Game:
         self.offerIndex = 0 # offer on screen: 0, 1 or 2
         self.battle = None # no battle until the robot is finished
 
+    def load_assets(self):
+        heads,bodies,arms,legs,light_on,light_off = []
+        types = ["pile","scrap","service","toy","companion","eco"]
+
+        for t in types:
+            legs.append(pygame.image.load('assets/' + t + '_legs.png').convert())
+            bodies.append(pygame.image.load('assets/'+ t + '_body.png').convert())
+            arms.append(pygame.image.load('assets/' + t + '_arms.png').convert())
+            heads.append(pygame.image.load('assets/' + t +'_head.png').convert())
+
+        frame = pygame.image.load('assets/frame.png').convert()
+        background_img = pygame.image.load('assets/background_img.png').convert()
+        shelf = pygame.image.load('assets/shelf.png').convert()
+        fire = pygame.image.load('assets/fire.png').convert()
+
+        for i in range (0,3):
+            light_on.append(pygame.image.load('assets/light' + i + '_on.png').convert())
+            light_on.append(pygame.image.load('assets/light' + i + '_on.png').convert())
+
+        return heads,bodies,arms,legs,light_on,light_off,frame,background_img,shelf,fire
+
     def leftKeyPress(self):
         match self.gameState:
             case "menu":
@@ -156,13 +177,9 @@ pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 pygame.display.toggle_fullscreen
 
+
 #Assets
-#We will want multiple of each kind ofc
-legs_img = pygame.image.load('assets/appleLegs.png').convert() 
-body_img = pygame.image.load('assets/appleBody.png').convert()
-arms_img = pygame.image.load('assets/appleArms.png').convert()
-head_img = pygame.image.load('assets/appleHead.png').convert()
-background_img = pygame.image.load('assets/background_draft.png').convert()
+heads_img,bodies_img,arms_img,legs_img,light_on_img,light_off_img,frame_img,background_img,shelf_img,fire_img = Game.load_assets()
 
 
 clock = pygame.time.Clock()
