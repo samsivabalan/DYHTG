@@ -35,12 +35,14 @@ class Game:
         background_img = pygame.image.load('assets/background_img.png').convert()
         shelf = pygame.image.load('assets/shelf.png').convert()
         fire = pygame.image.load('assets/fire.png').convert()
+        button_1 = pygame.image.load('/assets/button_1.png').convert()
+        button_2 = pygame.image.load('/assets/button_2.png').convert()
 
         for i in range (0,3):
             light_on.append(pygame.image.load('assets/light' + i + '_on.png').convert())
             light_on.append(pygame.image.load('assets/light' + i + '_on.png').convert())
 
-        return heads,bodies,arms,legs,light_on,light_off,frame,background_img,shelf,fire
+        return heads,bodies,arms,legs,light_on,light_off,frame,background_img,shelf,fire,button_1,button_2
 
     def leftKeyPress(self):
         match self.gameState:
@@ -156,8 +158,18 @@ class Game:
                     self.battleLoop()
 
     def beginGame(self):
+        
+        heads_img,bodies_img,arms_img,legs_img,light_on_img,light_off_img,frame_img,background_img,shelf_img,fire_img,button_1_img,button_0_img = theGame.load_assets()
+        
         #draw background
         screen.blit(background_img, (0,0))
+        screen.blit(frame_img, (0,0))
+        screen.blit(shelf_img,(960,0))
+        for i in range(0,3):
+            screen.blit(light_on[i], 980,600)
+            screen.blit(light_off[i], 980,600)
+        screen.blit(button_1_img, 970,620)
+        screen.blit(button_2_img, 990,620)
 
         #set loop condition
         self.running = True
@@ -176,11 +188,6 @@ class Game:
 pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 pygame.display.toggle_fullscreen
-
-
-#Assets
-heads_img,bodies_img,arms_img,legs_img,light_on_img,light_off_img,frame_img,background_img,shelf_img,fire_img = Game.load_assets()
-
 
 clock = pygame.time.Clock()
 # fill the screen with a color to wipe away anything from last frame
