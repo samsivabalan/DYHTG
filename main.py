@@ -1,40 +1,52 @@
+# The rules of the game
+# main.py calls leftKeyPress() / rightKeyPress() when a key is pressed,
+# and reads te variables below to decide what to draw
+# It sets up an empty robot and startBuilding() empties it again at the start of every new game
 # main.py - the file you run. Everything visual is in here
 # This is the only file that uses pygame. The rules of the game are in game.py
 
 import pygame
 import random
-#import parts
+from robot import Robot
+from robot import Part
 
 class Game:
-    
-
     def __init__(self):
         self.gameState = "menu"
         self.keyDown = False
-    
+        self.playerBot = Robot("player") # creates a robot with no parts
+        self.parts = [] # 4 lists, one per body part, 3 offers in each
+        self.partIndex = 0 # body part: 0 legs, 1 torso, 2 arms, 3 head
+        self.offerIndex = 0 # offer on screen: 0, 1 or 2
+        self.battle = None # no battle until the robot is finished
+
     def leftKeyPress(self):
         match self.gameState:
             case "menu":
-                #begin building phase
-                self.startBuilding()
+                self.startBuilding() # begin building process
             case "building":
-                pass
-                #accept piece, send to robot
+                self.acceptPart() # accept piece, send to robot
             case "battle":
-                pass
-                #attack
+                self.battle.leftAction() # attack
 
     def rightKeyPress(self):
         match self.gameState:
             case "menu":
-                #quit game
-                self.running = False
+                self.running = False # quit game
             case "building":
-                pass
-                #refuse piece, get next
+                self.rejectPart() # refuse piece, get next
             case "battle":
-                pass
-                #other attack
+                self.battle.rightAction() # other attack
+
+    def createOffers(self, partType):
+        # Make 3 parts of one type, each one being a different, random tier
+        tiers = random.sample([0, 1, 2, 3, 4, 5], 3)
+
+        # Turns each tier number into a part e.g. [5, 2, 4] -> Eco bot, Toy bot, Companion bot
+        offers = []
+        for tier in tiers:
+            offers.append(Part(partType,tier))
+        return offers
     
     def acceptPart(self):
         #add part to robot
@@ -72,13 +84,9 @@ class Game:
         self.gameState = "building"
 
         #create lists of random parts
-        self.parts = [[0]*3]*4
+        self.parts = []
         for i in range(0,4):
-            remainingTiers = [0, 1, 2, 3, 4, 5]
-            for j in range(0,3):
-                tier = random.choice(remainingTiers)
-                remainingTiers.remove(tier)
-                self.parts[i][j] = 0 #Part(i, tier)
+            self.parts.append(self.createOffers(i))
         self.partType = 0
         self.partIndex = 0
         
@@ -123,6 +131,19 @@ class Game:
                     self.buildLoop()
                 case "battle":
                     self.battleLoop()
+
+    def beginGame(self):
+        #draw background
+        screen.blit(background_img, (0,0))
+
+        #set loop condition
+        self.running = True
+
+        #draw menu
+        self.startMenu()
+
+        #begin the main loop
+        self.mainLoop()
 
 
 
