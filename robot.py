@@ -4,12 +4,12 @@ import random
 part_types = ["legs", "body", "arms", "head"] # build order from bottom to top
 
 tier_names = {
-    0: "The Pile",
-    1: "Scrap bot",
-    2: "Toy bot",
-    3: "Service bot",
-    4: "Companion bot",
-    5: "Eco bot",
+    0: "pile",
+    1: "scrap",
+    2: "toy",
+    3: "service",
+    4: "companion",
+    5: "eco",
 }
 
 class Part:
@@ -17,16 +17,16 @@ class Part:
         self.partType = partType
         self.tier = tier
         self.value = (tier + 1) * 20
-        #image will be part + tier key (eg: legs1.png)
-        self.image = self.partType + str(self.tier) + ".png" #get correct image 
+        #image will be part + tier key (eg: pile_legs.png)
+        self.image = tier_names[self.tier] + "_" + self.partType + ".png" #get correct image 
 
     def name(self):
-        # e.g. "Toy bot Legs"
-        return tier_names[self.tier] + " " + self.partType.title()
+        # e.g. "The toy bot legs"
+        return "The " +tier_names[self.tier] + " bot " + self.partType.title()
 
     def imagePath(self):
         # Art team saves images with these names so the program can find the right picture for any part
-        #assets/legs/legs1.png
+        #assets/legs/pile_legs.png
         return "assets/" + self.partType + "/" + self.image
     def getValue(self):
         return self.value
