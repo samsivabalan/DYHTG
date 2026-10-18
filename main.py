@@ -21,8 +21,13 @@ class Game:
         self.offerIndex = 0 # offer on screen: 0, 1 or 2
         self.battle = None # no battle until the robot is finished
 
-    def load_assets(self):
-        heads,bodies,arms,legs,light_on,light_off = []
+    def loadAssets(self):
+        heads = []
+        bodies = []
+        arms = []
+        legs = []
+        light_on = []
+        light_off = []
         types = ["pile","scrap","service","toy","companion","eco"]
 
         for t in types:
@@ -35,12 +40,14 @@ class Game:
         background_img = pygame.image.load('assets/background_img.png').convert()
         shelf = pygame.image.load('assets/shelf.png').convert()
         fire = pygame.image.load('assets/fire.png').convert()
+        button_1 = pygame.image.load('/assets/button_1.png').convert()
+        button_2 = pygame.image.load('/assets/button_2.png').convert()
 
         for i in range (0,3):
             light_on.append(pygame.image.load('assets/light' + i + '_on.png').convert())
             light_on.append(pygame.image.load('assets/light' + i + '_on.png').convert())
 
-        return heads,bodies,arms,legs,light_on,light_off,frame,background_img,shelf,fire
+        return heads,bodies,arms,legs,light_on,light_off,frame,background_img,shelf,fire,button_1,button_2
 
     def leftKeyPress(self):
         match self.gameState:
@@ -72,7 +79,7 @@ class Game:
     
     def acceptPart(self):
         #add part to robot
-        #playerBot.assemble(self.partType, self.currentPart)
+        self.playerBot.assemble(self.partType, self.currentPart)
         #move along to next item
         if self.partIndex == 2:
             if self.partType == 3:
@@ -120,8 +127,14 @@ class Game:
     def buildLoop(self):
         self.currentPart = self.parts[self.partType][self.partIndex]
         screen.blit(self.currentPart.img, (960,80))
-        #for part in self.playerBot
-        
+
+        #display robot
+        for part in self.playerBot.getParts:
+            if part != None:
+                screen.blit(part.getImage(), (0, 0))
+
+        #display lights
+        #screen.blit()
 
     def battleLoop(self):
         pass
@@ -156,8 +169,18 @@ class Game:
                     self.battleLoop()
 
     def beginGame(self):
+        
+        heads_img,bodies_img,arms_img,legs_img,light_on_img,light_off_img,frame_img,background_img,shelf_img,fire_img,button_1_img,button_0_img = theGame.loadAssets()
+        
         #draw background
         screen.blit(background_img, (0,0))
+        screen.blit(frame_img, (0,0))
+        screen.blit(shelf_img,(960,0))
+        for i in range(0,3):
+            screen.blit(light_on_img[i], 960,0)
+            screen.blit(light_off_img[i], 960,0)
+        screen.blit(button_1_img, 960,0)
+        screen.blit(button_2_img, 960,0)
 
         #set loop condition
         self.running = True
@@ -177,9 +200,6 @@ pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 pygame.display.toggle_fullscreen
 
-
-#Assets
-heads_img,bodies_img,arms_img,legs_img,light_on_img,light_off_img,frame_img,background_img,shelf_img,fire_img = Game.load_assets()
 
 
 clock = pygame.time.Clock()
