@@ -32,9 +32,9 @@ class Game:
 
         for t in types:
             self.legs_img.append(pygame.image.load('assets/legs/' + t + '_legs.png').convert_alpha())
-            self.bodies_img.append(pygame.image.load('assets/bodies/'+ t + '_body.png').convert_alpha())
+            self.bodies_img.append(pygame.image.load('assets/body/'+ t + '_body.png').convert_alpha())
             self.arms_img.append(pygame.image.load('assets/arms/' + t + '_arms.png').convert_alpha())
-            self.heads_img.append(pygame.image.load('assets/heads/' + t +'_head.png').convert_alpha())
+            self.heads_img.append(pygame.image.load('assets/head/' + t +'_head.png').convert_alpha())
 
         self.frame = pygame.image.load('assets/frame.png').convert_alpha()
         self.background_img = pygame.image.load('assets/background.png').convert_alpha()
