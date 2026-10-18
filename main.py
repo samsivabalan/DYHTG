@@ -1,3 +1,6 @@
+# main.py - the file you run. Everything visual is in here
+# This is the only file that uses pygame. The rules of the game are in game.py
+
 import pygame
 import random
 #import parts
@@ -120,19 +123,6 @@ class Game:
                     self.buildLoop()
                 case "battle":
                     self.battleLoop()
-
-    def beginGame(self):
-        #draw background
-        screen.blit(background_img, (0,0))
-
-        #set loop condition
-        self.running = True
-
-        #draw menu
-        self.startMenu()
-
-        #begin the main loop
-        self.mainLoop()
 
 
 
