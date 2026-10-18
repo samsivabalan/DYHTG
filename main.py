@@ -9,6 +9,7 @@ import pygame
 import random
 from robot import Robot
 from robot import Part
+from battle import Battle
 
 class Game:
     def __init__(self):
@@ -98,6 +99,7 @@ class Game:
     def buildLoop(self):
         self.currentPart = self.parts[self.partType][self.partIndex]
         screen.blit(self.currentPart.img, (960,80))
+        #for part in self.playerBot
         
 
     def battleLoop(self):

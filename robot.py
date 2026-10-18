@@ -17,6 +17,7 @@ class Part:
         self.partType = partType
         self.tier = tier
         self.value = (tier + 1) * 20
+        self.image = None #get correct image
 
     def name(self):
         # e.g. "Toy bot Legs"
@@ -41,6 +42,11 @@ class Robot:
     def assemble(partType, part):
         self.parts[partType] = part
 
+    def getParts(self, partType):
+        return self.parts
+
+    def getPartImage(self, partType):
+        return self.parts[partType].getImage
+
     def getStat(self, partType):
         return self.parts[partType].getValue
-        
