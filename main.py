@@ -87,6 +87,7 @@ class Game:
             else:
                 self.partType += 1
                 self.partIndex = 0
+                
 
     def rejectPart(self):
         #burn the part
@@ -101,6 +102,8 @@ class Game:
             else:
                 self.partType += 1
                 self.partIndex = 0
+                screen.blit(self.fire, (960,0))
+                pygame.time.wait(100)
         
 
     def startMenu(self):
