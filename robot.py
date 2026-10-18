@@ -17,6 +17,7 @@ class Part:
         self.partType = partType
         self.tier = tier
         self.value = (tier + 1) * 20
+        #image will be part + tier key (eg: legs1)
         self.image = None #get correct image
 
     def name(self):
@@ -25,6 +26,7 @@ class Part:
 
     def imagePath(self):
         # Art team saves images with these names so the program can find the right picture for any part
+        #assets/legs/tier1.png
         return "assets/" + self.partType + "/tier" + str(self.tier) + ".png"
 
     def getValue(self):

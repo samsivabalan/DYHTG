@@ -169,9 +169,6 @@ class Game:
                     self.battleLoop()
 
     def beginGame(self):
-        
-        heads_img,bodies_img,arms_img,legs_img,light_on_img,light_off_img,frame_img,background_img,shelf_img,fire_img,button_1_img,button_0_img = theGame.loadAssets()
-        
         #draw background
         screen.blit(background_img, (0,0))
         screen.blit(frame_img, (0,0))
@@ -200,6 +197,9 @@ pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 pygame.display.toggle_fullscreen
 
+
+#Assets
+heads_img,bodies_img,arms_img,legs_img,light_on_img,light_off_img,frame_img,background_img,shelf_img,fire_img = Game.load_assets()
 
 
 clock = pygame.time.Clock()
