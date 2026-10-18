@@ -40,6 +40,16 @@ class Game:
 
     # building process
 
+    def createOffers(self, partType):
+        # Make 3 parts of one type, each one being a different, random tier
+        tiers = random.sample([0, 1, 2, 3, 4, 5], 3)
+
+        # Turns each tier number into a part e.g. [5, 2, 4] -> Eco bot, Toy bot, Companion bot
+        offers = []
+        for tier in tiers:
+            offers.append(Part(partType,tier))
+        return offers
+
     def startBuilding(self):
         # Runs at the start of every game, so it resets everything
         self.gameState = "building"
@@ -48,7 +58,7 @@ class Game:
         # 4 lists, one per body part, each holding 3 random parts
         self.parts = []
         for partType in part_types:
-            self.parts.append(createOffers(partType))
+            self.parts.append(self.createOffers(partType))
 
         self.partIndex = 0 # start on the legs
         self.offerIndex = 0 #start on the first offer

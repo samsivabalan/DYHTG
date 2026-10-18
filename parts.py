@@ -25,12 +25,17 @@ class Part:
         # Art team saves images with these names so the program can find the right picture for any part
         return "assets/" + self.partType + "/tier" + str(self.tier) + ".png"
 
-def createOffers(partType):
-    # Make 3 parts of one type, each one being a different, random tier
-    tiers = random.sample([0, 1, 2, 3, 4, 5], 3)
 
-    # Turns each tier number into a part e.g. [5, 2, 4] -> Eco bot, Toy bot, Companion bot
-    offers = []
-    for tier in tiers:
-        offers.append(Part(partType,tier))
-    return offers
+
+class Robot:
+    def __init__(self, type):
+        if type == "player":
+            self.legs = None
+            self.body = None
+            self.arms = None
+            self.head = None
+        else:
+            self.legs = Part(0,random.randint(0,5))
+            self.body = Part(1,random.randint(0,5))
+            self.arms = Part(2,random.randint(0,5))
+            self.head = Part(3,random.randint(0,5))
