@@ -22,7 +22,7 @@ class Game:
 
     def load_assets(self):
         heads,bodies,arms,legs,light_on,light_off = []
-        types = ["companion","eco","pile","service","toy","scrap"]
+        types = ["pile","scrap","service","toy","companion","eco"]
 
         for t in types:
             legs.append(pygame.image.load('assets/' + t + '_legs.png').convert())
