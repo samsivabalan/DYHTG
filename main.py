@@ -9,7 +9,6 @@ import pygame
 import random
 from robot import Robot
 from robot import Part
-from battle import Battle
 
 class Game:
     def __init__(self):
