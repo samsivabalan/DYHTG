@@ -21,33 +21,32 @@ class Game:
         self.offerIndex = 0 # offer on screen: 0, 1 or 2
         self.battle = None # no battle until the robot is finished
 
-    def loadAssets(self):
-        heads = []
-        bodies = []
-        arms = []
-        legs = []
-        light_on = []
-        light_off = []
+        #create images
+        self.heads_img = []
+        self.bodies_img = []
+        self.arms_img = []
+        self.legs_img = []
+        self.light_on_img = []
+        self.light_off_img = []
         types = ["pile","scrap","service","toy","companion","eco"]
 
         for t in types:
-            legs.append(pygame.image.load('assets/' + t + '_legs.png').convert())
-            bodies.append(pygame.image.load('assets/'+ t + '_body.png').convert())
-            arms.append(pygame.image.load('assets/' + t + '_arms.png').convert())
-            heads.append(pygame.image.load('assets/' + t +'_head.png').convert())
+            self.legs_img.append(pygame.image.load('assets/' + t + '_legs.png').convert_alpha())
+            self.bodies_img.append(pygame.image.load('assets/'+ t + '_body.png').convert_alpha())
+            self.arms_img.append(pygame.image.load('assets/' + t + '_arms.png').convert_alpha())
+            self.heads_img.append(pygame.image.load('assets/' + t +'_head.png').convert_alpha())
 
-        frame = pygame.image.load('assets/frame.png').convert()
-        background_img = pygame.image.load('assets/background_img.png').convert()
-        shelf = pygame.image.load('assets/shelf.png').convert()
-        fire = pygame.image.load('assets/fire.png').convert()
-        button_1 = pygame.image.load('/assets/button_1.png').convert()
-        button_2 = pygame.image.load('/assets/button_2.png').convert()
+        self.frame = pygame.image.load('assets/frame.png').convert_alpha()
+        self.background_img = pygame.image.load('assets/background.png').convert_alpha()
+        self.shelf = pygame.image.load('assets/shelf.png').convert_alpha()
+        self.fire = pygame.image.load('assets/fire.png').convert_alpha()
+        self.button_1_img = pygame.image.load('assets/button_1.png').convert_alpha()
+        self.button_2_img = pygame.image.load('assets/button_2.png').convert_alpha()
 
-        for i in range (0,3):
-            light_on.append(pygame.image.load('assets/light' + i + '_on.png').convert())
-            light_on.append(pygame.image.load('assets/light' + i + '_on.png').convert())
+        for i in range (1,4):
+            self.light_on_img.append(pygame.image.load('assets/light' + str(i) + '_on.png').convert_alpha())
+            self.light_off_img.append(pygame.image.load('assets/light' + str(i) + '_on.png').convert_alpha())
 
-        return heads,bodies,arms,legs,light_on,light_off,frame,background_img,shelf,fire,button_1,button_2
 
     def leftKeyPress(self):
         match self.gameState:
@@ -170,14 +169,14 @@ class Game:
 
     def beginGame(self):
         #draw background
-        screen.blit(background_img, (0,0))
-        screen.blit(frame_img, (0,0))
-        screen.blit(shelf_img,(960,0))
+        screen.blit(self.background_img, (0,0))
+        screen.blit(self.frame, (0,0))
+        screen.blit(self.shelf,(960,0))
         for i in range(0,3):
-            screen.blit(light_on_img[i], 960,0)
-            screen.blit(light_off_img[i], 960,0)
-        screen.blit(button_1_img, 960,0)
-        screen.blit(button_2_img, 960,0)
+            screen.blit(self.light_on_img[i], (960,0))
+            screen.blit(self.light_off_img[i], (960,0))
+        screen.blit(self.button_1_img, (960,0))
+        screen.blit(self.button_2_img, (960,0))
 
         #set loop condition
         self.running = True
@@ -197,9 +196,6 @@ pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 pygame.display.toggle_fullscreen
 
-
-#Assets
-heads_img,bodies_img,arms_img,legs_img,light_on_img,light_off_img,frame_img,background_img,shelf_img,fire_img = Game.load_assets()
 
 
 clock = pygame.time.Clock()
