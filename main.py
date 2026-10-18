@@ -78,29 +78,32 @@ class Game:
     
     def acceptPart(self):
         #add part to robot
-        self.playerBot.assemble(self.partType, self.currentPart)
+        self.playerBot.assemble(self.offerIndex, self.currentPart)
+
         #move along to next item
-        if self.partIndex == 2:
-            if self.partType == 3:
-                #end build phase
-                pass
-            else:
-                self.partType += 1
-                self.partIndex = 0
+        self.nextPart()
 
     def rejectPart(self):
         #burn the part
+        
+        if self.partIndex == 2:
+            #add part to robot if none left after
+            playerBot.assemble(self.offerIndex, self.currentPart)
 
         #move along to next item
-        if self.partIndex == 2:
-            #add part to robot
-            #playerBot.assemble(self.partType, self.currentPart)
-            if self.partType == 3:
-                #end build phase
-                pass
-            else:
-                self.partType += 1
-                self.partIndex = 0
+        self.nextPart()
+
+
+    def nextPart(self):
+        pass
+        #screen.blit(self.light_on_img[i], (960,0))
+        if self.offerIndex == 3:
+            #end build phase
+            pass
+        else:
+            self.offerIndex += 1
+            self.partIndex = 0
+
         
 
     def startMenu(self):
@@ -115,7 +118,7 @@ class Game:
         self.parts = []
         for i in range(0,4):
             self.parts.append(self.createOffers(i))
-        self.partType = 0
+        self.offerIndex = 0
         self.partIndex = 0
         
 
@@ -124,13 +127,9 @@ class Game:
         #create enemies
 
     def buildLoop(self):
-        self.currentPart = self.parts[self.partType][self.partIndex]
+        self.currentPart = self.parts[self.offerIndex][self.partIndex]
         screen.blit(self.currentPart.img, (960,80))
 
-        #display robot
-        for part in self.playerBot.getParts:
-            if part != None:
-                screen.blit(part.getImage(), (0, 0))
 
         #display lights
         #screen.blit()
@@ -173,7 +172,6 @@ class Game:
         screen.blit(self.frame, (0,0))
         screen.blit(self.shelf,(960,0))
         for i in range(0,3):
-            screen.blit(self.light_on_img[i], (960,0))
             screen.blit(self.light_off_img[i], (960,0))
         screen.blit(self.button_1_img, (960,0))
         screen.blit(self.button_2_img, (960,0))
